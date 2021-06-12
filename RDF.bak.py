@@ -150,11 +150,6 @@ class RDF(object):
     def plot_RDF(self, filename=None):
         """ plot PXRD """
         datax = smear(self.RDF, self.sigma)
-        #print(datax)
-        data_transposed = np.transpose(datax)
-        np.savetxt('RDF_raw.csv', data_transposed, delimiter=' ')
-        with open('RDF_raw.csv', 'r') as original: data = original.read()
-        with open('RDF_raw.csv', 'w') as modified: modified.write("#x y\n" + data)
         plt.plot(datax[0, :], datax[1, :])
         plt.grid()
         plt.xlabel(r"$r (\AA)$", fontsize=16)
