@@ -136,7 +136,7 @@ class RDF(object):
         # R: the array which contains the number of occurences of atomic pairs
         # in each [dmin, dmax].
         R = np.apply_along_axis(compute_R, axis=0, arr=d)
-
+        np.savetxt('distances.csv', R, delimiter=' ')
         # radii in angstrom
         r = np.arange(1, length+1, 1)*R_bin
 
