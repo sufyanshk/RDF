@@ -17,5 +17,4 @@ rm uniques.txt
 awk -F '    ' '{if (NR<=2) print $0; else print $1,$2,$3,$3*$3}' all63NearestNeighbours.txt > tmp
 
 awk '{for (i=1;i<=NF;i++) sum[i]+=$i} END{print sum[3]/(NR-2)"  <--Average pair distance"; print sqrt(sum[4]/(NR-2))"  <--Root mean squared pair distance"}' tmp 
-
 rm tmp
