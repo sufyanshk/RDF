@@ -5,10 +5,11 @@
 #Execute the program as ./get_allNearestNeighbours.sh <lattice parameter from bulk relaxation>
 
 lp=$1 #Here the $1 is user inputted lattice parameter found out from bulk relaxation
+natoms=`awk 'NR==7{for (i=1; i<=NF; i++) sum=sum+$i; print sum}' CONTCAR` #Here we are extracting the number of atoms present in the CONTCAR file
 
-python ~/Documents/projects/vasputil/scripts/vasputil_nearestneighbors -n 64 CONTCAR > all63NearestNeighbours.txt
+python ~/Documents/projects/vasputil/scripts/vasputil_nearestneighbors -n $natoms CONTCAR > all63NearestNeighbours.txt
 
-awk -v CONVFMT=%.6g '!a[$3]++' all63NearestNeighbours.txt > uniques.txt
+awk -v CONVFMT=%.6f '!a[$3]++' all63NearestNeighbours.txt > uniques.txt
 
 #Here the first nearest neighbor distance is further increased by 10% to accommodate the deviations
 awk -v CONVFMT=%.6f -v lp="$lp" '{if (NR<=2) print $0; else if ($3<(lp*1.10*sqrt(3)/2)) print $0}' uniques.txt > all63NearestNeighbours.txt
